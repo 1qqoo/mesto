@@ -2,9 +2,9 @@
   width: 150px;
   height: 50px;
   background-image: url(../../../images/addButton.svg);
-  background-color: #000000;
+  background-color: transparent;
   margin-left: auto;
-  border: 1px solid #ffffff;
+  border: 2px solid #ffffff;
   background-position: center center;
   background-repeat: no-repeat;
   cursor: pointer;

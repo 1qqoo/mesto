@@ -11,19 +11,30 @@
   </head>
   <body class="root">
     <header class="header">
-      <img class="header__logo" src="./images/header-logo.png" alt="Логотип" />
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип" />
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="./images/kysto.jpg" alt="Кусто" />
+        <img
+          class="profile__avatar"
+          src="./images/kysto.jpg"
+          alt="Ваша фоточка"
+        />
         <div class="profile__info">
           <div class="profile__edit">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__button"></button>
+            <button
+              class="profile__button"
+              aria-label="Кнопка редактирования профиля"
+            ></button>
           </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button
+          class="profile__add-button"
+          type="button"
+          aria-label="Кнопка добавления"
+        ></button>
       </section>
       <section class="elements">
         <ul class="elements-grid">
@@ -101,22 +112,34 @@
     </footer>
     <div class="popup">
       <div class="popup__container">
-        <button class="popup__button-close"></button>
+        <button
+          class="popup__button-close"
+          type="button"
+          aria-label="Закрывает попап"
+        ></button>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form class="popup__form">
+        <form class="popup__form" name="popupForm">
           <input
+            name="nameInput"
             class="popup__text popup__text_type_name"
             type="text"
             autocomplete="off"
             placeholder="Введите имя"
           />
           <input
+            name="jobInput"
             class="popup__text popup__text_type_job"
             type="text"
             autocomplete="off"
             placeholder="Введите профессию"
           />
-          <button class="popup__button-save" type="submit">Сохранить</button>
+          <button
+            class="popup__button-save"
+            type="submit"
+            aria-label="Кнопка сохранить и отправить форму"
+          >
+            Сохранить
+          </button>
         </form>
       </div>
     </div>
