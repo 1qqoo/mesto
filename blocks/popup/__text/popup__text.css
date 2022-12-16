@@ -9,9 +9,3 @@
   line-height: 17px;
   box-sizing: border-box;
 }
-
-@media screen and (max-width: 700px) {
-  .popup__text {
-    padding: 0;
-  }
-}

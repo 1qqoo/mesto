@@ -14,13 +14,9 @@ function openProfileButton() {
   jobInput.value = profileSubtitle.textContent;
 }
 
-profileButton.addEventListener("click", openProfileButton);
-
 function closePopapButton() {
   popup.classList.remove("popup_opened");
 }
-
-popapButtonClose.addEventListener("click", closePopapButton);
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -30,3 +26,6 @@ function handleFormSubmit(evt) {
 }
 
 popupForm.addEventListener("submit", handleFormSubmit);
+
+profileButton.addEventListener("click", openProfileButton);
+popapButtonClose.addEventListener("click", closePopapButton);
