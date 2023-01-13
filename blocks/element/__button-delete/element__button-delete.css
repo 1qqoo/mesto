@@ -1,5 +1,6 @@
 .element__button-delete {
   position: absolute;
+  filter: drop-shadow(1px 1px 1px black);
   top: 20px;
   right: 16px;
   background-image: url(../../../images/Trash.svg);
