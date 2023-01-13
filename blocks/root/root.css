@@ -5,4 +5,6 @@
   font-family: "Inter", sans-serif, Arial;
   color: #fff;
   -webkit-animation-appearance: none;
+  -moz-animation-appearance: none;
+  appearance: none;
 }
