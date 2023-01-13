@@ -1,0 +1,8 @@
+.element__button-like_active {
+  background: url(https://code.s3.yandex.net/web-code/dom/heart-filled.svg)
+    center no-repeat;
+}
+
+.element__button-like:hover {
+  opacity: 0.5;
+}

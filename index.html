@@ -51,104 +51,41 @@
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
         <button
-          class="profile__add-button"
+          class="profile__add-card"
           type="button"
           aria-label="Кнопка добавления"
         ></button>
       </section>
-      <section class="elements">
-        <ul class="elements-grid">
-          <li class="element">
-            <img
-              class="element__image"
-              src="./images/karachaevsk.jpg"
-              alt="Карачаевск"
-            />
-            <div class="element__footer">
-              <h2 class="element__title">Карачаевск</h2>
-              <button
-                class="element__button-like"
-                type="button"
-              ></button>
-            </div>
-          </li>
-          <li class="element">
-            <img
-              class="element__image"
-              src="./images/elbrus.jpg"
-              alt="Карачаевск"
-            />
-            <div class="element__footer">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button
-                class="element__button-like"
-                type="button"
-              ></button>
-            </div>
-          </li>
-          <li class="element">
-            <img
-              class="element__image"
-              src="./images/dombay.jpg"
-              alt="Карачаевск"
-            />
-            <div class="element__footer">
-              <h2 class="element__title">Домбай</h2>
-              <button
-                class="element__button-like"
-                type="button"
-              ></button>
-            </div>
-          </li>
-          <li class="element">
-            <img
-              class="element__image"
-              src="./images/elbrus.jpg"
-              alt="Карачаевск"
-            />
-            <div class="element__footer">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button
-                class="element__button-like"
-                type="button"
-              ></button>
-            </div>
-          </li>
-          <li class="element">
-            <img
-              class="element__image"
-              src="./images/dombay.jpg"
-              alt="Карачаевск"
-            />
-            <div class="element__footer">
-              <h2 class="element__title">Домбай</h2>
-              <button
-                class="element__button-like"
-                type="button"
-              ></button>
-            </div>
-          </li>
-          <li class="element">
-            <img
-              class="element__image"
-              src="./images/karachaevsk.jpg"
-              alt="Карачаевск"
-            />
-            <div class="element__footer">
-              <h2 class="element__title">Карачаево-Черкессия</h2>
-              <button
-                class="element__button-like"
-                type="button"
-              ></button>
-            </div>
-          </li>
-        </ul>
+      <section class="elements-container">
+        <ul class="elements-grid"></ul>
       </section>
     </main>
+    <template id="element-template">
+      <li class="element">
+        <img
+          class="element__image"
+          alt=""
+        />
+        <button
+          class="element__button-delete"
+          aria-label="удалить карточку"
+          type="button"
+        ></button>
+
+        <div class="element__footer">
+          <h2 class="element__title"></h2>
+          <button
+            class="element__button-like"
+            aria-label="поставить лайк"
+            type="button"
+          ></button>
+        </div>
+      </li>
+    </template>
     <footer class="footer">
       <p class="footer__paragraph">© 2022 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup_type_profile popup">
       <div class="popup__container">
         <button
           class="popup__button-close"
@@ -158,9 +95,10 @@
         <h3 class="popup__title">Редактировать профиль</h3>
         <form
           class="popup__form"
-          name="popupForm"
+          name="profileForm"
         >
           <input
+            required
             name="nameInput"
             class="popup__text popup__text_type_name"
             type="text"
@@ -168,6 +106,7 @@
             placeholder="Введите имя"
           />
           <input
+            required
             name="jobInput"
             class="popup__text popup__text_type_job"
             type="text"
@@ -184,6 +123,58 @@
         </form>
       </div>
     </div>
+    <div class="popup_type_card popup">
+      <div class="popup__container">
+        <button
+          class="popup__button-close"
+          type="button"
+          aria-label="Закрывает попап"
+        ></button>
+        <h3 class="popup__title">Новое место</h3>
+        <form
+          class="popup__form"
+          name="cardForm"
+        >
+          <input
+            required
+            name="titleInput"
+            class="popup__text popup__text_type_title"
+            type="text"
+            autocomplete="off"
+            placeholder="Название"
+          />
+          <input
+            required
+            name="imageInput"
+            class="popup__text popup__text_type_image"
+            type="url"
+            autocomplete="off"
+            placeholder="Ссылка на картинку"
+          />
+          <button
+            class="popup__button-save"
+            type="submit"
+            aria-label="Кнопка создать и отправить форму"
+          >
+            Создать
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="popup_type_image popup">
+      <div class="popup__container popup__container_type_image">
+        <img
+          class="popup__image"
+          alt=""
+        />
+        <p class="popup__caption"></p>
+        <button
+          type="button"
+          class="popup__button-close"
+        ></button>
+      </div>
+    </div>
+    <script src="./scripts/initialCards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

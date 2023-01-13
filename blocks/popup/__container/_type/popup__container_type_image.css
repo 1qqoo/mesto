@@ -1,0 +1,7 @@
+.popup__container_type_image {
+  background-color: transparent;
+  max-width: initial;
+  position: relative;
+  width: auto;
+  padding: 0;
+}

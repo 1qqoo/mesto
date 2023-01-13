@@ -1,7 +1,6 @@
 .element__button-like {
-  background-image: url(../../../images/element-like.svg);
-  background-color: #ffffff;
-  background-repeat: no-repeat;
+  background: url(../../../images/element-like.svg) center no-repeat;
+  background-size: 100%;
   max-width: 22px;
   max-height: 19px;
   width: 100%;
@@ -14,8 +13,4 @@
 
 .element__button-like:hover {
   opacity: 0.5;
-}
-
-.element__button-like:active {
-  background-color: #000000;
 }
