@@ -44,6 +44,7 @@ function createCard({ name, link }) {
     popupImage.src = link;
     popupImage.alt = name;
     popupCaption.textContent = name;
+
     openPopup(popupCardImage);
   });
 
@@ -86,6 +87,7 @@ function handleProfileButton() {
   openPopup(popupProfile);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+  resetValid(profileForm, classSet);
 }
 
 function handleProfileFormSubmit(evt) {
@@ -108,6 +110,8 @@ function handleCardFormSubmit(evt) {
 }
 
 function handleAddCardButton() {
+  cardForm.reset();
+  resetValid(cardForm, classSet);
   openPopup(popupCard);
 }
 
