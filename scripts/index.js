@@ -11,8 +11,8 @@ const profileForm = popupProfile.querySelector(".popup__form");
 const nameInput = popupProfile.querySelector(".popup__text_type_name");
 const jobInput = popupProfile.querySelector(".popup__text_type_job");
 const cardForm = popupCard.querySelector(".popup__form");
-const titleInput = popupCard.querySelector(".popup__text_type_title");
-const imageInput = popupCard.querySelector(".popup__text_type_image");
+const titleInput = popupCard.querySelector(".popup__input_type_title");
+const imageInput = popupCard.querySelector(".popup__input_type_image");
 const cardTemplete = document.querySelector("#element-template").content;
 const cardContainer = document.querySelector(".elements-grid");
 const elementDeleteCard = cardTemplete.querySelector(".element__button-delete");
@@ -35,13 +35,14 @@ function createCard({ name, link }) {
   cardDelete.addEventListener("click", function () {
     newCard.remove();
   });
+
   cardLike.addEventListener("click", function () {
     cardLike.classList.toggle("element__button-like_active");
   });
+
   cardImage.addEventListener("click", function () {
     popupImage.src = link;
     popupImage.alt = name;
-    console.log(popupCaption);
     popupCaption.textContent = name;
     openPopup(popupCardImage);
   });
@@ -57,11 +58,28 @@ function renderCards() {
 }
 
 function openPopup(popup) {
+  document.addEventListener("keydown", closePopapupEsc);
+  document.addEventListener("mousedown", closePopupMousedown);
   popup.classList.add("popup_opened");
 }
 
 function closePopup(popup) {
+  document.removeEventListener("keydown", closePopapupEsc);
+  document.removeEventListener("mousedown", closePopupMousedown);
   popup.classList.remove("popup_opened");
+}
+
+function closePopapupEsc(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
+}
+
+function closePopupMousedown(evt) {
+  if (evt.target.classList.contains("popup_opened")) {
+    closePopup(evt.target);
+  }
 }
 
 function handleProfileButton() {

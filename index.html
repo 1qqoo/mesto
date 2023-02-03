@@ -96,23 +96,34 @@
         <form
           class="popup__form"
           name="profileForm"
+          novalidate
         >
           <input
-            required
+            id="name-input"
             name="nameInput"
-            class="popup__text popup__text_type_name"
+            class="popup__input popup__text_type_name"
             type="text"
             autocomplete="off"
             placeholder="Введите имя"
+            minlength="2"
+            maxlength="40"
+            required
           />
+          <span class="name-input-error popup__input-error"
+            >Вы пропустили это поле</span
+          >
           <input
             required
             name="jobInput"
-            class="popup__text popup__text_type_job"
+            class="popup__input popup__text_type_job"
             type="text"
             autocomplete="off"
-            placeholder="Введите профессию"
+            placeholder="Расскажите о себе"
+            minlength="2"
+            maxlength="200"
+            id="job-input"
           />
+          <span class="job-input-error popup__input-error"></span>
           <button
             class="popup__button-save"
             type="submit"
@@ -134,23 +145,30 @@
         <form
           class="popup__form"
           name="cardForm"
+          novalidate
         >
           <input
-            required
             name="titleInput"
-            class="popup__text popup__text_type_title"
+            class="popup__input popup__input_type_title"
             type="text"
             autocomplete="off"
             placeholder="Название"
-          />
-          <input
             required
+            id="title-input"
+          />
+          <span class="title-input-error popup__input-error"></span>
+
+          <input
             name="imageInput"
-            class="popup__text popup__text_type_image"
+            class="popup__input popup__input_type_image"
             type="url"
             autocomplete="off"
             placeholder="Ссылка на картинку"
+            required
+            id="url-input"
           />
+          <span class="url-input-error popup__input-error"></span>
+
           <button
             class="popup__button-save"
             type="submit"
@@ -176,5 +194,6 @@
     </div>
     <script src="./scripts/initialCards.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
