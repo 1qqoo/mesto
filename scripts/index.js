@@ -1,5 +1,14 @@
 import { Card } from "./Card.js";
-// import { FormValidator } from "./FormValidator.js";
+import { FormValidator } from "./FormValidator.js";
+
+const config = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-save",
+  inactiveButtonClass: "popup__button-save_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
+};
 
 const content = document.querySelector(".content");
 const popupProfile = document.querySelector(".popup_type_profile");
@@ -10,23 +19,22 @@ const popupCardClose = popupCard.querySelector(".popup__button-close");
 const profileAddCard = document.querySelector(".profile__add-card");
 const profileTitle = content.querySelector(".profile__title");
 const profileSubtitle = content.querySelector(".profile__subtitle");
-const profileForm = popupProfile.querySelector(".popup__form");
+const profileForm = popupProfile.querySelector(".popup__form_profile");
+const cardForm = popupCard.querySelector(".popup__form_card");
 const nameInput = popupProfile.querySelector(".popup__input_type_name");
 const jobInput = popupProfile.querySelector(".popup__input_type_job");
-const cardForm = popupCard.querySelector(".popup__form");
 const titleInput = popupCard.querySelector(".popup__input_type_title");
 const imageInput = popupCard.querySelector(".popup__input_type_image");
 const cardContainer = document.querySelector(".elements-grid");
 const popupCardImage = document.querySelector(".popup_type_image");
 const popupImage = document.querySelector(".popup__image");
 const popupTitle = document.querySelector(".popup__caption");
-const formElement = document.querySelector(".popup__form");
 
-// const cardValidator = new FormValidator(config, popupCard);
-// const profileValidator = new FormValidator(config, popupProfile);
+const cardValidator = new FormValidator(cardForm, config);
+const profileValidator = new FormValidator(profileForm, config);
 
-// cardValidator.enableValidation();
-// profileValidator.enableValidation();
+cardValidator.enableValidation();
+profileValidator.enableValidation();
 
 const initialCards = [
   {
@@ -84,7 +92,7 @@ function handleProfileButton() {
   openPopup(popupProfile);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  resetValid(formElement, config);
+  profileValidator.resetValid();
 }
 
 function handleProfileFormSubmit(evt) {
@@ -115,7 +123,7 @@ function handleCardFormSubmit(evt) {
 function handleAddCardButton() {
   openPopup(popupCard);
   cardForm.reset();
-  resetValid(cardForm, config);
+  cardValidator.resetValid();
 }
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
