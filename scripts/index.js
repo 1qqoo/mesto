@@ -1,3 +1,6 @@
+import { Card } from "./Card.js";
+// import { FormValidator } from "./FormValidator.js";
+
 const content = document.querySelector(".content");
 const popupProfile = document.querySelector(".popup_type_profile");
 const popupCard = document.querySelector(".popup_type_card");
@@ -13,50 +16,44 @@ const jobInput = popupProfile.querySelector(".popup__input_type_job");
 const cardForm = popupCard.querySelector(".popup__form");
 const titleInput = popupCard.querySelector(".popup__input_type_title");
 const imageInput = popupCard.querySelector(".popup__input_type_image");
-const cardTemplete = document.querySelector("#element-template").content;
 const cardContainer = document.querySelector(".elements-grid");
-const elementDeleteCard = cardTemplete.querySelector(".element__button-delete");
 const popupCardImage = document.querySelector(".popup_type_image");
 const popupImage = document.querySelector(".popup__image");
-const popupCaption = document.querySelector(".popup__caption");
-const popupImageClose = popupCardImage.querySelector(".popup__button-close");
+const popupTitle = document.querySelector(".popup__caption");
+const formElement = document.querySelector(".popup__form");
 
-function createCard({ name, link }) {
-  const newCard = cardTemplete.querySelector(".element").cloneNode(true);
-  const cardDelete = newCard.querySelector(".element__button-delete");
-  const cardImage = newCard.querySelector(".element__image");
-  const cardTitle = newCard.querySelector(".element__title");
-  const cardLike = newCard.querySelector(".element__button-like");
+// const cardValidator = new FormValidator(config, popupCard);
+// const profileValidator = new FormValidator(config, popupProfile);
 
-  cardImage.src = link;
-  cardImage.alt = name;
-  cardTitle.textContent = name;
+// cardValidator.enableValidation();
+// profileValidator.enableValidation();
 
-  cardDelete.addEventListener("click", function () {
-    newCard.remove();
-  });
-
-  cardLike.addEventListener("click", function () {
-    cardLike.classList.toggle("element__button-like_active");
-  });
-
-  cardImage.addEventListener("click", function () {
-    popupImage.src = link;
-    popupImage.alt = name;
-    popupCaption.textContent = name;
-
-    openPopup(popupCardImage);
-  });
-
-  return newCard;
-}
-
-function renderCards() {
-  initialCards.forEach(function (cardData) {
-    const newCard = createCard(cardData);
-    cardContainer.append(newCard);
-  });
-}
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
 
 function openPopup(popup) {
   document.addEventListener("keydown", closePopapupEsc);
@@ -87,7 +84,7 @@ function handleProfileButton() {
   openPopup(popupProfile);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  resetValid(profileForm, classSet);
+  resetValid(formElement, config);
 }
 
 function handleProfileFormSubmit(evt) {
@@ -99,23 +96,27 @@ function handleProfileFormSubmit(evt) {
 
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
-  const newCard = createCard({
-    name: titleInput.value,
-    link: imageInput.value,
-  });
-  cardContainer.prepend(newCard);
+  const newCard = new Card(
+    {
+      name: titleInput.value,
+      link: imageInput.value,
+    },
+    "#element-template",
+    handleCardClick
+  );
+
+  const cardElement = newCard.generateCard();
+  cardContainer.prepend(cardElement);
   closePopup(popupCard);
   titleInput.value = "";
   imageInput.value = "";
 }
 
 function handleAddCardButton() {
-  cardForm.reset();
-  resetValid(cardForm, classSet);
   openPopup(popupCard);
+  cardForm.reset();
+  resetValid(cardForm, config);
 }
-
-renderCards();
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 
@@ -129,10 +130,23 @@ popupProfileClose.addEventListener("click", function () {
   closePopup(popupProfile);
 });
 
+popupCardImage.addEventListener("click", function () {
+  closePopup(popupCardImage);
+});
+
 popupCardClose.addEventListener("click", function () {
   closePopup(popupCard);
 });
 
-popupImageClose.addEventListener("click", function () {
-  closePopup(popupCardImage);
+const handleCardClick = (name, link) => {
+  popupImage.alt = name;
+  popupImage.src = link;
+  popupTitle.textContent = name;
+  openPopup(popupCardImage);
+};
+
+initialCards.forEach(function (item) {
+  const card = new Card(item, "#element-template", handleCardClick);
+  const cardElement = card.generateCard();
+  document.querySelector(".elements-grid").append(cardElement);
 });

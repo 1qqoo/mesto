@@ -1,4 +1,4 @@
-const classSet = {
+const config = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button-save",
@@ -92,4 +92,4 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   }
 };
 
-enableValidation(classSet);
+enableValidation(config);
