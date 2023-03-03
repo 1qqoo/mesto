@@ -13,9 +13,12 @@ const config = {
 const content = document.querySelector(".content");
 const popupProfile = document.querySelector(".popup_type_profile");
 const popupCard = document.querySelector(".popup_type_card");
+const popupCardImage = document.querySelector(".popup_type_image");
+const popupImage = popupCardImage.querySelector(".popup__image");
 const profileButton = content.querySelector(".profile__button");
 const popupProfileClose = popupProfile.querySelector(".popup__button-close");
 const popupCardClose = popupCard.querySelector(".popup__button-close");
+const popupImageClose = popupCardImage.querySelector(".popup__button-close");
 const profileAddCard = document.querySelector(".profile__add-card");
 const profileTitle = content.querySelector(".profile__title");
 const profileSubtitle = content.querySelector(".profile__subtitle");
@@ -26,8 +29,6 @@ const jobInput = popupProfile.querySelector(".popup__input_type_job");
 const titleInput = popupCard.querySelector(".popup__input_type_title");
 const imageInput = popupCard.querySelector(".popup__input_type_image");
 const cardContainer = document.querySelector(".elements-grid");
-const popupCardImage = document.querySelector(".popup_type_image");
-const popupImage = document.querySelector(".popup__image");
 const popupTitle = document.querySelector(".popup__caption");
 
 const cardValidator = new FormValidator(cardForm, config);
@@ -97,27 +98,28 @@ function handleProfileButton() {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   closePopup(popupProfile);
 }
 
+function createCard(item) {
+  const newCard = new Card(item, "#element-template", handleCardClick);
+  const cardElement = newCard.generateCard();
+
+  return cardElement;
+}
+
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
-  const newCard = new Card(
-    {
-      name: titleInput.value,
-      link: imageInput.value,
-    },
-    "#element-template",
-    handleCardClick
-  );
+  const cardElement = createCard({
+    name: titleInput.value,
+    link: imageInput.value,
+  });
 
-  const cardElement = newCard.generateCard();
   cardContainer.prepend(cardElement);
   closePopup(popupCard);
-  titleInput.value = "";
-  imageInput.value = "";
 }
 
 function handleAddCardButton() {
@@ -138,7 +140,7 @@ popupProfileClose.addEventListener("click", function () {
   closePopup(popupProfile);
 });
 
-popupCardImage.addEventListener("click", function () {
+popupImageClose.addEventListener("click", function () {
   closePopup(popupCardImage);
 });
 
@@ -154,7 +156,6 @@ const handleCardClick = (name, link) => {
 };
 
 initialCards.forEach(function (item) {
-  const card = new Card(item, "#element-template", handleCardClick);
-  const cardElement = card.generateCard();
-  document.querySelector(".elements-grid").append(cardElement);
+  const cardElement = createCard(item);
+  cardContainer.append(cardElement);
 });
