@@ -18,17 +18,14 @@
       name="author"
       content="Dmitry Karpenko"
     />
-    <link
-      rel="stylesheet"
-      href="./pages/index.css"
-    />
+
     <title>Mesto</title>
   </head>
   <body class="root">
     <header class="header">
       <img
         class="header__logo"
-        src="./images/logo.svg"
+        src="<%=require('./images/logo.svg')%>"
         alt="Логотип"
       />
     </header>
@@ -36,7 +33,7 @@
       <section class="profile">
         <img
           class="profile__avatar"
-          src="./images/kysto.jpg"
+          src="<%=require('./images/kysto.jpg')%>"
           alt="Ваша фоточка"
         />
         <div class="profile__info">
@@ -195,9 +192,5 @@
         ></button>
       </div>
     </div>
-    <script
-      type="module"
-      src="./pages/index.js"
-    ></script>
   </body>
 </html>

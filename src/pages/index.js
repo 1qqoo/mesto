@@ -1,16 +1,15 @@
+import "./index.css";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import {
   config,
   initialCards,
-  popupImage,
   profileButton,
   profileAddCard,
   nameInput,
   aboutInput,
   cardListSelector,
-  popupTitle,
-} from "../utils/constants.js";
+} from "../components/utils/constants.js";
 
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import Section from "../components/Section.js";
