@@ -1,4 +1,4 @@
-<img src="<%=require('../src/images/readmi.jpg')%>" alt="Описание работы">
+<img src="<%=require('./src/images/readmi.jpg')%>" alt="Описание работы">
 
 ## [Ссылка на проект в github](https://1qqoo.github.io/mesto/)
 
