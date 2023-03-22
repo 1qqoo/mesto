@@ -49,7 +49,7 @@ function handleAddCardButton() {
   cardForm.reset();
   cardValidator.resetValid();
 }
-console.log("Даров");
+
 function handleProfileFormSubmit(userData) {
   userInfo.setUserInfo(userData);
 }
