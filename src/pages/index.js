@@ -32,7 +32,10 @@ const popupProfileEdit = new PopupWithForm(
   handleAvatarFormSubmit
 );
 const popupCardImage = new PopupWithImage(".popup_type_image");
-const popupCardDelete = new PopupWithConfirm(".popup_type_delete");
+const popupCardDelete = new PopupWithConfirm(
+  ".popup_type_delete",
+  handleDeleteFormSubmit
+);
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
@@ -101,11 +104,18 @@ function handleCardFormSubmit(cardData) {
 }
 
 function handleDeleteFormSubmit(card) {
-  api.deleteCard(card.getCardId()).then(() => card.deleteCard());
+  api.deleteCard(card.getCardId()).then(() => {
+    card.deleteCard();
+    popupCardDelete.close();
+  });
 }
 
-const handleDeleteCard = () => {
-  popupCardDelete.open();
+const handleLike = (like) => {
+  like.classList.add("element__button-like_active");
+};
+
+const handleDeleteCard = (card) => {
+  popupCardDelete.open(card);
 };
 
 const handleCardClick = (name, link) => {
@@ -118,7 +128,8 @@ const createCard = (item) => {
     "#card",
     userId,
     handleCardClick,
-    handleDeleteCard
+    handleDeleteCard,
+    handleLike
   );
   const cardElement = newCard.generateCard();
   return cardElement;

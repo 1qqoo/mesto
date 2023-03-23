@@ -9,6 +9,7 @@ export class Card {
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
+    this._handleLike = data.handleLike;
     this._userId = userId;
     this._isOwner = data.owner._id === userId;
     this._templateSelector = templateSelector;
@@ -37,17 +38,21 @@ export class Card {
     return this._element;
   }
 
+  deleteCard() {
+    this._element.remove();
+  }
+
   getCardId() {
     return this._id;
   }
 
   _setEventListeners() {
     this._deleteCard.addEventListener("click", () => {
-      this._handleDeleteCard();
+      this._handleDeleteCard(this);
     });
 
     this._cardLike.addEventListener("click", () => {
-      this._cardLike.classList.toggle("element__button-like_active");
+      this._handleLike(this._handleLike);
     });
 
     this._cardImage.addEventListener("click", () => {
