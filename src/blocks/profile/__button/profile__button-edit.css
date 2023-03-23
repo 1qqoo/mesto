@@ -1,4 +1,4 @@
-.profile__button_edit {
+.profile__button-edit {
   position: relative;
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@
   background-color: transparent;
 }
 
-.profile__button_edit::before {
+.profile__button-edit::before {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -20,7 +20,7 @@
   content: "";
 }
 
-.profile__button_edit:hover::before {
+.profile__button-edit:hover::before {
   opacity: 1;
   cursor: pointer;
 }
