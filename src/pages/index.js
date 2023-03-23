@@ -110,8 +110,15 @@ function handleDeleteFormSubmit(card) {
   });
 }
 
-const handleLike = (like) => {
-  like.classList.add("element__button-like_active");
+const handleLike = (card) => {
+  api
+    .setLike(card.getCardId())
+    .then((data) => {
+      card.handleCardLike(data);
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    });
 };
 
 const handleDeleteCard = (card) => {
