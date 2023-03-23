@@ -7,33 +7,6 @@ export const config = {
   errorClass: "popup__input-error_active",
 };
 
-export const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 const content = document.querySelector(".content");
 
 export const cardListSelector = ".elements-grid";
@@ -41,10 +14,14 @@ export const cardList = document.querySelector(".elements-grid");
 const popupProfile = document.querySelector(".popup_type_profile");
 const popupCard = document.querySelector(".popup_type_card");
 const popupCardImage = document.querySelector(".popup_type_image");
+export const avatar = document.querySelector(".profile__avatar");
 export const popupImage = popupCardImage.querySelector(".popup__image");
 
 // Кнопки
 
+export const profileButtonEdit = document.querySelector(
+  ".profile__button_edit"
+);
 export const profileButton = content.querySelector(".profile__button");
 export const popupProfileClose = popupProfile.querySelector(
   ".popup__button-close"
@@ -66,3 +43,10 @@ export const titleInput = popupCard.querySelector(".popup__input_type_title");
 export const imageInput = popupCard.querySelector(".popup__input_type_image");
 
 export const popupTitle = document.querySelector(".popup__caption");
+export const apiParameters = {
+  url: "https://mesto.nomoreparties.co/v1/cohort-61",
+  headers: {
+    "Content-Type": "application/json",
+    authorization: "957a4dff-e381-48f3-972a-805329544aae",
+  },
+};

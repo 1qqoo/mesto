@@ -1,11 +1,20 @@
 export class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(
+    data,
+    templateSelector,
+    userId,
+    handleCardClick,
+    handleDeleteCard
+  ) {
     this._name = data.name;
     this._link = data.link;
+    this._id = data._id;
+    this._userId = userId;
+    this._isOwner = data.owner._id === userId;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteCard = handleDeleteCard;
   }
-
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
@@ -23,13 +32,18 @@ export class Card {
     this._element.querySelector(".element__title").textContent = this._name;
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
+    if (!this._isOwner) this._deleteCard.remove();
     this._setEventListeners();
     return this._element;
   }
 
+  getCardId() {
+    return this._id;
+  }
+
   _setEventListeners() {
     this._deleteCard.addEventListener("click", () => {
-      this._element.remove();
+      this._handleDeleteCard();
     });
 
     this._cardLike.addEventListener("click", () => {
