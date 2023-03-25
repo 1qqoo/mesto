@@ -20,7 +20,7 @@ export const popupImage = popupCardImage.querySelector(".popup__image");
 // Кнопки
 
 export const profileButtonEdit = document.querySelector(
-  ".profile__button_edit"
+  ".profile__button-edit"
 );
 export const profileButton = content.querySelector(".profile__button");
 export const popupProfileClose = popupProfile.querySelector(

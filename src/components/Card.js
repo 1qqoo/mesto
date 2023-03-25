@@ -5,8 +5,8 @@ export class Card {
     userId,
     handleCardClick,
     handleDeleteCard,
-    handleLike,
-    handleLikeDelite
+    handleLike
+    // handleLikeDelite
   ) {
     this._name = data.name;
     this._link = data.link;
@@ -15,11 +15,12 @@ export class Card {
     this._likes = data.likes;
     this._userId = userId;
     this._isOwner = data.owner._id === userId;
-    this._handleLikeDelite = handleLikeDelite;
+    // this._handleLikeDelite = handleLikeDelite;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
   }
+
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
@@ -43,7 +44,7 @@ export class Card {
         return this._userId === user._id;
       })
     ) {
-      this._likeCard.classList.add("photo-grid__button_active");
+      this._likeCard.classList.add("element__button-like_active");
     }
   }
 
