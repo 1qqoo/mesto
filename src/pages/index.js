@@ -110,20 +110,20 @@ function handleDeleteFormSubmit(card) {
   });
 }
 
-const handleLike = (card) => {
-  api
-    .setLike(card.getCardId())
-    .then((data) => {
-      card.handleCardLike(data);
-    })
-    .catch((err) => {
-      console.log(`Ошибка: ${err}`);
-    });
-};
+// const handleLike = (card) => {
+//   api
+//     .setLike(card.getCardId())
+//     .then((data) => {
+//       card.handleCardLike(data);
+//     })
+//     .catch((err) => {
+//       console.log(`Ошибка: ${err}`);
+//     });
+// };
 
-const handleDeleteCard = (card) => {
-  popupCardDelete.open(card);
-};
+// const handleDeleteCard = (card) => {
+//   popupCardDelete.open(card);
+// };
 
 const handleCardClick = (name, link) => {
   popupCardImage.open(name, link);
@@ -134,9 +134,9 @@ const createCard = (item) => {
     item,
     "#card",
     userId,
-    handleCardClick,
-    handleDeleteCard,
-    handleLike
+    handleCardClick
+    // handleDeleteCard,
+    // handleLike
   );
   const cardElement = newCard.generateCard();
   return cardElement;
