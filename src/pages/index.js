@@ -9,6 +9,9 @@ import {
   aboutInput,
   profileButtonEdit,
   apiParameters,
+  cardForm,
+  profileForm,
+  avatarForm,
 } from "../components/utils/constants.js";
 
 import { PopupWithForm } from "../components/PopupWithForm.js";
@@ -21,21 +24,69 @@ import Api from "../components/Api";
 let userId;
 const cardValidator = new FormValidator(cardForm, config);
 const profileValidator = new FormValidator(profileForm, config);
-const popupCard = new PopupWithForm(".popup_type_card", handleCardFormSubmit);
-const popupProfile = new PopupWithForm(
-  ".popup_type_profile",
-  handleProfileFormSubmit
-);
+const avatarValidator = new FormValidator(avatarForm, config);
 
-const popupProfileEdit = new PopupWithForm(
-  ".popup_type_avatar",
-  handleAvatarFormSubmit
-);
 const popupCardImage = new PopupWithImage(".popup_type_image");
-const popupCardDelete = new PopupWithConfirm(
-  ".popup_type_delete",
-  handleDeleteFormSubmit
-);
+const popupCard = new PopupWithForm(".popup_type_card", (cardData) => {
+  popupCard.loading(true);
+  api
+    .addNewCard(cardData)
+    .then((res) => {
+      const cardElement = createCard(res);
+      сardList.addItem(cardElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupCard.loading(false, "Создать");
+    });
+});
+
+const popupProfile = new PopupWithForm(".popup_type_profile", (userData) => {
+  popupProfile.loading(true);
+  api
+    .updateUserInfo(userData)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+      popupProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupProfile.loading(false, "Сохранить");
+    });
+});
+
+const popupAvatar = new PopupWithForm(".popup_type_avatar", (userData) => {
+  popupAvatar.loading(true);
+  api
+    .updateUserAvatar(userData)
+    .then((res) => userInfo.setUserAvatar(res))
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupAvatar.loading(false, "Обновить");
+    });
+});
+
+const popupCardDelete = new PopupWithConfirm(".popup_type_delete", (card) => {
+  popupCardDelete.loadingConfirm(true);
+  api
+    .deleteCard(card.getCardId())
+    .then(() => {
+      card.deleteCard();
+      popupCardDelete.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupCardDelete.loadingConfirm(false);
+    });
+});
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
@@ -58,85 +109,47 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
 
 cardValidator.enableValidation();
 profileValidator.enableValidation();
+avatarValidator.enableValidation();
 popupCard.setEventListeners();
 popupProfile.setEventListeners();
-popupProfileEdit.setEventListeners();
+popupAvatar.setEventListeners();
 popupCardImage.setEventListeners();
 popupCardDelete.setEventListeners();
 
-function handleProfileButton() {
-  popupProfile.open();
-  const elementInfo = userInfo.getUserInfo();
-  nameInput.value = elementInfo.name;
-  aboutInput.value = elementInfo.about;
-  profileValidator.resetValid();
-}
-
-function handleAddCardButton() {
-  popupCard.open();
-  cardForm.reset();
-  cardValidator.resetValid();
-}
-
-function handleProfileFormSubmit(userData) {
-  api
-    .updateUserInfo(userData)
-    .then((userData) => userInfo.setUserInfo(userData));
-}
-
-function handleAvatarButton() {
-  popupProfileEdit.open();
-  profileValidator.resetValid();
-}
-
-function handleAvatarFormSubmit(userData) {
-  api
-    .updateUserAvatar(userData)
-    .then((userData) => userInfo.setUserAvatar(userData));
-}
-
-function handleCardFormSubmit(cardData) {
-  api.addNewCard(cardData).then((cardData) => {
-    const cardElement = createCard(cardData);
-
-    сardList.addItem(cardElement);
-  });
-}
-
-function handleDeleteFormSubmit(card) {
-  api.deleteCard(card.getCardId()).then(() => {
-    card.deleteCard();
-    popupCardDelete.close();
-  });
-}
-
-// const handleLike = (card) => {
-//   api
-//     .setLike(card.getCardId())
-//     .then((data) => {
-//       card.handleCardLike(data);
-//     })
-//     .catch((err) => {
-//       console.log(`Ошибка: ${err}`);
-//     });
-// };
-
-// const handleDeleteCard = (card) => {
-//   popupCardDelete.open(card);
-// };
-
-const handleCardClick = (name, link) => {
-  popupCardImage.open(name, link);
-};
-
 const createCard = (item) => {
   const newCard = new Card(
-    item,
-    "#card",
-    userId,
-    handleCardClick
-    // handleDeleteCard,
-    // handleLike
+    {
+      data: item,
+      userId: userId,
+      handleCardClick: (name, link) => {
+        popupCardImage.open(name, link);
+      },
+      handleLikeClick: () => {
+        if (newCard.isLike()) {
+          api
+            .deleteLike(newCard.getCardId())
+            .then((res) => {
+              newCard.likeCard(res.likes.length);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          api
+            .setLike(newCard.getCardId())
+            .then((res) => {
+              newCard.likeCard(res.likes.length);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      },
+      handleDeleteCard: () => {
+        popupCardDelete.open(newCard);
+      },
+    },
+    "#card"
   );
   const cardElement = newCard.generateCard();
   return cardElement;
@@ -151,6 +164,19 @@ const сardList = new Section(
   ".elements-grid"
 );
 
-profileButton.addEventListener("click", handleProfileButton);
-profileAddCard.addEventListener("click", handleAddCardButton);
-profileButtonEdit.addEventListener("click", handleAvatarButton);
+profileButton.addEventListener("click", () => {
+  const elementInfo = userInfo.getUserInfo();
+  nameInput.value = elementInfo.name;
+  aboutInput.value = elementInfo.about;
+  profileValidator.resetValid();
+  popupProfile.open();
+});
+profileAddCard.addEventListener("click", () => {
+  cardForm.reset();
+  cardValidator.resetValid();
+  popupCard.open();
+});
+profileButtonEdit.addEventListener("click", () => {
+  profileValidator.resetValid();
+  popupAvatar.open();
+});

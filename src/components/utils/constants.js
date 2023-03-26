@@ -13,6 +13,7 @@ export const cardListSelector = ".elements-grid";
 export const cardList = document.querySelector(".elements-grid");
 const popupProfile = document.querySelector(".popup_type_profile");
 const popupCard = document.querySelector(".popup_type_card");
+const popupAvatar = document.querySelector(".popup_type_avatar");
 const popupCardImage = document.querySelector(".popup_type_image");
 export const avatar = document.querySelector(".profile__avatar");
 export const popupImage = popupCardImage.querySelector(".popup__image");
@@ -41,6 +42,12 @@ export const nameInput = popupProfile.querySelector(".popup__input_type_name");
 export const aboutInput = popupProfile.querySelector(".popup__input_type_job");
 export const titleInput = popupCard.querySelector(".popup__input_type_title");
 export const imageInput = popupCard.querySelector(".popup__input_type_image");
+export const avatarInput = popupAvatar.querySelector(
+  ".popup__input_type_avatar"
+);
+export const cardForm = popupCard.querySelector(".popup__form-card");
+export const profileForm = popupProfile.querySelector(".popup__form-profile");
+export const avatarForm = popupAvatar.querySelector(".popup__form-avatar");
 
 export const popupTitle = document.querySelector(".popup__caption");
 export const apiParameters = {
