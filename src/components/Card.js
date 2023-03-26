@@ -1,10 +1,6 @@
 export class Card {
   constructor(
-    {data,
-    userId,
-    handleCardClick,
-    handleLikeClick,
-    handleDeleteCard},
+    { data, userId, handleCardClick, handleLikeClick, handleDeleteCard },
     templateSelector
   ) {
     this._data = data;
@@ -28,39 +24,23 @@ export class Card {
 
     return cardElement;
   }
-  
+
   likeCard(count) {
     this._likes = this._data.likes;
-    this._cardLike.classList.toggle('element__button-like_active');
+    this._cardLike.classList.toggle("element__button-like_active");
     this._likesNumber.textContent = count;
   }
 
   isLike() {
     return this._cardLike.classList.contains("element__button-like_active");
   }
-  
-  // _isCardLiked() {
-  //   if (
-  //     this._likes.some((user) => {
-  //       return this._userId === user._id;
-  //     })
-  //   ) {
-  //     this._likeCard.classList.add("element__button-like_active");
-  //   }
-  // }
-
-  // handleCardLike(data) {
-  //   this._likes = data.likes;
-  //   this._likeCard.classList.toggle("element__button-like_active");
-  //   this._likesNumber.textContent = this._likes.length;
-  // }
 
   showLike() {
     this._likes.forEach((el) => {
       if (el._id === this._userId) {
         this._cardLike.classList.add("element__button-like_active");
       }
-    })
+    });
   }
 
   hiddenTrash() {
@@ -80,9 +60,15 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._deleteCard.addEventListener("click", () => {this._handleDeleteCard(this._element)});
-    this._cardLike.addEventListener("click", () => {this._handleLikeClick()});
-    this._cardImage.addEventListener("click", () => {this._handleCardClick(this._name, this._link)});
+    this._deleteCard.addEventListener("click", () => {
+      this._handleDeleteCard(this._element);
+    });
+    this._cardLike.addEventListener("click", () => {
+      this._handleLikeClick();
+    });
+    this._cardImage.addEventListener("click", () => {
+      this._handleCardClick(this._name, this._link);
+    });
   }
 
   generateCard() {
