@@ -12,7 +12,7 @@ import {
   cardForm,
   profileForm,
   avatarForm,
-} from "../components/utils/constants.js";
+} from "../utils/constants.js";
 
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
@@ -34,6 +34,7 @@ const popupCard = new PopupWithForm(".popup_type_card", (cardData) => {
     .then((res) => {
       const cardElement = createCard(res);
       сardList.addItem(cardElement);
+      popupCard.close();
     })
     .catch((err) => {
       console.log(err);
@@ -63,7 +64,10 @@ const popupAvatar = new PopupWithForm(".popup_type_avatar", (userData) => {
   popupAvatar.loading(true);
   api
     .updateUserAvatar(userData)
-    .then((res) => userInfo.setUserAvatar(res))
+    .then((res) => {
+      userInfo.setUserAvatar(res);
+      popupAvatar.close();
+    })
     .catch((err) => {
       console.log(err);
     })
@@ -172,11 +176,10 @@ profileButton.addEventListener("click", () => {
   popupProfile.open();
 });
 profileAddCard.addEventListener("click", () => {
-  cardForm.reset();
   cardValidator.resetValid();
   popupCard.open();
 });
 profileButtonEdit.addEventListener("click", () => {
-  profileValidator.resetValid();
+  avatarValidator.resetValid();
   popupAvatar.open();
 });
